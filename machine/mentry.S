@@ -267,9 +267,14 @@ do_reset:
   slli a2, a3, RISCV_PGSHIFT
   add sp, sp, a2
 
-  # Boot on the first hart
-  beqz a3, init_first_hart
+#  # Boot on the first hart
+#  beqz a3, init_first_hart
 
+  # Boot on hart 1
+  li a2, 1
+  sub a3,a3,a2
+  beqz a3, init_first_hart
+  
   # set MSIE bit to receive IPI
   li a2, MIP_MSIP
   csrw mie, a2
